@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "24247372252",
+    "project_id": "biblioteca-cm-14776",
+    "storage_bucket": "biblioteca-cm-14776.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24247372252:android:045781e71111e6ab8b6719",
+        "android_client_info": {
+          "package_name": "com.example.biblioteca_cm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpmP-EK9BappEGxvr_mMr7UPetQjjACAo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
