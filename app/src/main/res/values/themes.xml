@@ -1,9 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Biblioteca_cm" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/color_principal</item>
+        <item name="android:textColorPrimary">@color/white</item>
     </style>
-
-    <style name="Theme.Biblioteca_cm" parent="Base.Theme.Biblioteca_cm" />
 </resources>
