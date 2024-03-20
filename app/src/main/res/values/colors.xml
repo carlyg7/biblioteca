@@ -2,6 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="color_principal">#85C1E9</color>
+    <color name="color_principal">#FF9736</color>
     <color name="titulo">#85C1E9</color>
+    <color name="enlace">#FF8222</color>
 </resources>
