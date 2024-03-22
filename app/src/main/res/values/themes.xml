@@ -3,4 +3,8 @@
         <item name="colorPrimary">@color/color_principal</item>
         <item name="android:textColorPrimary">@color/white</item>
     </style>
+    <style name="roundedCorners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">15dp</item>
+    </style>
 </resources>

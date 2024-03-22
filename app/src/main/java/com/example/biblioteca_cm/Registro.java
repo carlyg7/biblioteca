@@ -59,7 +59,7 @@ public class Registro extends AppCompatActivity {
         signupLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Iniciar la actividad de registro
+                // Intent nos redirige a otra vista
                 Intent intent = new Intent(Registro.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -149,7 +149,6 @@ public class Registro extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "Error al verificar el DNI en Firestore", e);
                         Toast.makeText(Registro.this, "Error al verificar el DNI. Por favor, inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
                     }
                 });

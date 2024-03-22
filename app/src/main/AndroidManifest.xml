@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Registro"/>
+        <activity android:name=".MainCatalogo"/>
     </application>
 
 </manifest>
