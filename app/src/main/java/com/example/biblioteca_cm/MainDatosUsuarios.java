@@ -2,6 +2,7 @@ package com.example.biblioteca_cm;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -11,6 +12,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.squareup.picasso.Picasso;
 
 public class MainDatosUsuarios extends AppCompatActivity {
     private FirebaseFirestore db;
@@ -38,7 +40,7 @@ public class MainDatosUsuarios extends AppCompatActivity {
     // Método para obtener los datos del usuario desde Firestore
     private void obtenerDatosUsuario() {
         // Obtener una referencia al documento del usuario en Firestore
-        db.collection("user").document("04445678S")
+        db.collection("user").document("08897725Z")
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -52,7 +54,7 @@ public class MainDatosUsuarios extends AppCompatActivity {
                             textViewName.setText(usuario.getNombre() +" "+ usuario.getApellidos());
 
                             TextView textViewUser = findViewById(R.id.textViewUsuario);
-                            textViewUser.setText("Usuario: " + usuario.getUsuario());
+                            textViewUser.setText(usuario.getUsuario());
 
                             TextView textViewMail = findViewById(R.id.textViewCorreo);
                             textViewMail.setText(usuario.getCorreo());
@@ -68,6 +70,11 @@ public class MainDatosUsuarios extends AppCompatActivity {
 
                            //TextView textViewPassword = findViewById(R.id.textViewPassword);
                            // textViewPassword.setText("Password: " + usuario.getPassword());
+
+                            ImageView imageViewPerfil = findViewById(R.id.imageViewPerfil);
+                            String nombreImagen = usuario.getImg();
+                            int resID = getResources().getIdentifier(nombreImagen, "drawable", getPackageName());
+                            Picasso.get().load(resID).into(imageViewPerfil);
                         } else {
                             Log.d(TAG, "No existe el documento");
                         }

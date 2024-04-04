@@ -25,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class Registro extends AppCompatActivity {
     private FirebaseFirestore db;
     private static final String TAG = "Registro de Usuario";
@@ -99,6 +101,11 @@ public class Registro extends AppCompatActivity {
         // Tipo de usuario -> Cliente por defecto
         String tipo_user = "cliente";
 
+        // Imagen de perfil aleatorio
+        Random random = new Random();
+        int n_perfil = random.nextInt(10) + 1;
+        String img = "perfil"+n_perfil;
+
         // Verificar si el DNI ya está registrado
         db.collection("user")
                 .document(dni)
@@ -112,7 +119,7 @@ public class Registro extends AppCompatActivity {
                         } else {
                             // El DNI no está registrado, procede a registrar el usuario
                             // Crear un nuevo objeto Usuario con los datos
-                            Usuario nuevoUsuario = new Usuario(nombre, apellidos, dni, usuario, password, correo, telefono, tipo_user);
+                            Usuario nuevoUsuario = new Usuario(nombre, apellidos, dni, usuario, password, correo, telefono, tipo_user, img);
 
                             // Guardar el nuevo usuario en Firebase Firestore
                             db.collection("user")

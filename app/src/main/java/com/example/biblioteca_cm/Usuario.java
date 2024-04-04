@@ -11,11 +11,13 @@ public class Usuario {
 
     private String tipo_user;
 
+    private String img;
+
     public Usuario() {
     }
 
     // Constructor
-    public Usuario(String nombre, String apellidos, String dni, String usuario, String password, String correo, String telefono, String tipo_user) {
+    public Usuario(String nombre, String apellidos, String dni, String usuario, String password, String correo, String telefono, String tipo_user, String img) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.dni = dni;
@@ -24,6 +26,15 @@ public class Usuario {
         this.correo = correo;
         this.telefono = telefono;
         this.tipo_user = "cliente";
+        this.img = img;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public String getTipo_user() {

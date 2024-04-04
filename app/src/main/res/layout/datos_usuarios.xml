@@ -38,6 +38,15 @@
             android:orientation="vertical"
             android:padding="20dp">
 
+            <ImageView
+                android:id="@+id/imageViewPerfil"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_gravity="center"/>
+
             <TextView
                 android:id="@+id/textViewUsuario"
                 android:layout_width="match_parent"
