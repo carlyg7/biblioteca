@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -24,6 +25,12 @@ public class MainDatosUsuarios extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         db = FirebaseFirestore.getInstance();
 
+        // Ocultar ActionBar
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+
         // Obtener datos del usuario desde Firestore y mostrarlos en los TextView
         obtenerDatosUsuario();
     }
@@ -42,28 +49,25 @@ public class MainDatosUsuarios extends AppCompatActivity {
 
                             // Mostrar los datos del usuario en los TextView
                             TextView textViewName = findViewById(R.id.textViewNombre);
-                            textViewName.setText("Nombre: " + usuario.getNombre());
-
-                            TextView textViewSurname = findViewById(R.id.textViewApellidos);
-                            textViewSurname.setText("Apellidos: " + usuario.getApellidos());
+                            textViewName.setText(usuario.getNombre() +" "+ usuario.getApellidos());
 
                             TextView textViewUser = findViewById(R.id.textViewUsuario);
                             textViewUser.setText("Usuario: " + usuario.getUsuario());
 
                             TextView textViewMail = findViewById(R.id.textViewCorreo);
-                            textViewMail.setText("Correo: " + usuario.getCorreo());
+                            textViewMail.setText(usuario.getCorreo());
 
                             TextView textViewDni = findViewById(R.id.textViewDNI);
-                            textViewDni.setText("DNI: " + usuario.getDni());
+                            textViewDni.setText(usuario.getDni());
 
                             TextView textViewPhoneNumber = findViewById(R.id.textViewTelefono);
-                            textViewPhoneNumber.setText("Teléfono: " + usuario.getTelefono());
+                            textViewPhoneNumber.setText(usuario.getTelefono());
 
                             TextView textViewTypeUser = findViewById(R.id.textViewTipoUsuario);
-                            textViewTypeUser.setText("Tipo de Usuario: " + usuario.getTipo_user());
+                            textViewTypeUser.setText(usuario.getTipo_user());
 
-                            TextView textViewPassword = findViewById(R.id.textViewPassword);
-                            textViewPassword.setText("Password: " + usuario.getPassword());
+                           //TextView textViewPassword = findViewById(R.id.textViewPassword);
+                           // textViewPassword.setText("Password: " + usuario.getPassword());
                         } else {
                             Log.d(TAG, "No existe el documento");
                         }
