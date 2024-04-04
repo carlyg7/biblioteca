@@ -33,14 +33,14 @@ public class MainDatosUsuarios extends AppCompatActivity {
             actionBar.hide();
         }
 
-        // Obtener datos del usuario desde Firestore y mostrarlos en los TextView
-        obtenerDatosUsuario();
+        // Obtener el dni del usuario del que queremos mostrar los datos, guardado en SharedPreferences
+        String dniUsuario = getIntent().getStringExtra("dniUsuario");
+        obtenerDatosUsuario(dniUsuario);
     }
 
-    // Método para obtener los datos del usuario desde Firestore
-    private void obtenerDatosUsuario() {
+    private void obtenerDatosUsuario(String dni) {
         // Obtener una referencia al documento del usuario en Firestore
-        db.collection("user").document("08897725Z")
+        db.collection("user").document(dni)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -68,9 +68,6 @@ public class MainDatosUsuarios extends AppCompatActivity {
                             TextView textViewTypeUser = findViewById(R.id.textViewTipoUsuario);
                             textViewTypeUser.setText(usuario.getTipo_user());
 
-                           //TextView textViewPassword = findViewById(R.id.textViewPassword);
-                           // textViewPassword.setText("Password: " + usuario.getPassword());
-
                             ImageView imageViewPerfil = findViewById(R.id.imageViewPerfil);
                             String nombreImagen = usuario.getImg();
                             int resID = getResources().getIdentifier(nombreImagen, "drawable", getPackageName());
@@ -78,6 +75,7 @@ public class MainDatosUsuarios extends AppCompatActivity {
                         } else {
                             Log.d(TAG, "No existe el documento");
                         }
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

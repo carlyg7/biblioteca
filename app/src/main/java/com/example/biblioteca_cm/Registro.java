@@ -141,6 +141,7 @@ public class Registro extends AppCompatActivity {
                                             startActivity(intent);
                                             finish(); // Cierra la actividad actual para que el usuario no pueda regresar con el botón de retroceso
 
+
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
@@ -151,6 +152,7 @@ public class Registro extends AppCompatActivity {
                                         }
                                     });
                         }
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
