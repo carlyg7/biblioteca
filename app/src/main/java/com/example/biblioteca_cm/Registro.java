@@ -55,9 +55,9 @@ public class Registro extends AppCompatActivity {
             }
         });
 
-        // Obtener referencia al TextView "Regístrate aquí"
+        // Obtener referencia al TextView "Volver a login"
         TextView signupLink = findViewById(R.id.enlace_login);
-        // Agregar OnClickListener al TextView "Regístrate aquí"
+        // Agregar OnClickListener al TextView "volver a login"
         signupLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
