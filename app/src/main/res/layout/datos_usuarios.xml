@@ -89,7 +89,7 @@
         android:id="@+id/textViewTipoUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TTipo de Usuario: "
+        android:text="Tipo de Usuario: "
         android:textSize="20sp"
         android:layout_below="@id/textViewTelefono"
         android:layout_marginTop="16dp"

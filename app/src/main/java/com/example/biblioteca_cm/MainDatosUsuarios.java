@@ -31,7 +31,7 @@ public class MainDatosUsuarios extends AppCompatActivity {
     // Método para obtener los datos del usuario desde Firestore
     private void obtenerDatosUsuario() {
         // Obtener una referencia al documento del usuario en Firestore
-        db.collection("usuarios").document("04445678S")
+        db.collection("user").document("04445678S")
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -41,26 +41,26 @@ public class MainDatosUsuarios extends AppCompatActivity {
                             Usuario usuario = documentSnapshot.toObject(Usuario.class);
 
                             // Mostrar los datos del usuario en los TextView
-                            TextView textViewNombre = findViewById(R.id.textViewNombre);
-                            textViewNombre.setText("Nombre: " + usuario.getNombre());
+                            TextView textViewName = findViewById(R.id.textViewNombre);
+                            textViewName.setText("Nombre: " + usuario.getNombre());
 
-                            TextView textViewApellidos = findViewById(R.id.textViewApellidos);
-                            textViewApellidos.setText("Apellidos: " + usuario.getApellidos());
+                            TextView textViewSurname = findViewById(R.id.textViewApellidos);
+                            textViewSurname.setText("Apellidos: " + usuario.getApellidos());
 
-                            TextView textViewUsuario = findViewById(R.id.textViewUsuario);
-                            textViewUsuario.setText("Usuario: " + usuario.getUsuario());
+                            TextView textViewUser = findViewById(R.id.textViewUsuario);
+                            textViewUser.setText("Usuario: " + usuario.getUsuario());
 
-                            TextView textViewCorreo = findViewById(R.id.textViewCorreo);
-                            textViewCorreo.setText("Correo: " + usuario.getCorreo());
+                            TextView textViewMail = findViewById(R.id.textViewCorreo);
+                            textViewMail.setText("Correo: " + usuario.getCorreo());
 
-                            TextView textViewDNI = findViewById(R.id.textViewDNI);
-                            textViewDNI.setText("DNI: " + usuario.getDni());
+                            TextView textViewDni = findViewById(R.id.textViewDNI);
+                            textViewDni.setText("DNI: " + usuario.getDni());
 
-                            TextView textViewTelefono = findViewById(R.id.textViewTelefono);
-                            textViewTelefono.setText("Teléfono: " + usuario.getTelefono());
+                            TextView textViewPhoneNumber = findViewById(R.id.textViewTelefono);
+                            textViewPhoneNumber.setText("Teléfono: " + usuario.getTelefono());
 
-                            TextView textViewTipoUsuario = findViewById(R.id.textViewTipoUsuario);
-                            textViewTipoUsuario.setText("Tipo de Usuario: " + usuario.getTipo_user());
+                            TextView textViewTypeUser = findViewById(R.id.textViewTipoUsuario);
+                            textViewTypeUser.setText("Tipo de Usuario: " + usuario.getTipo_user());
 
                             TextView textViewPassword = findViewById(R.id.textViewPassword);
                             textViewPassword.setText("Password: " + usuario.getPassword());
