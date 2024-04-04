@@ -11,6 +11,9 @@ public class Usuario {
 
     private String tipo_user;
 
+    public Usuario() {
+    }
+
     // Constructor
     public Usuario(String nombre, String apellidos, String dni, String usuario, String password, String correo, String telefono, String tipo_user) {
         this.nombre = nombre;
