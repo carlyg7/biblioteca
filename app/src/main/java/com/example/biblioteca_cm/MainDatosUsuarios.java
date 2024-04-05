@@ -16,9 +16,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.squareup.picasso.Picasso;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
-
-
 public class MainDatosUsuarios extends AppCompatActivity {
     private FirebaseFirestore db;
     private static final String TAG = "MainDatosUsuarios";

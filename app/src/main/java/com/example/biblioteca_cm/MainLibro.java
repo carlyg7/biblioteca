@@ -1,5 +1,6 @@
 package com.example.biblioteca_cm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -28,15 +29,28 @@ public class MainLibro extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
+
+        // Obtener datos de libro
+        obtenerDatosLibro();
+
+
+        TextView volverCatalogo = findViewById(R.id.volverLibro);
+        volverCatalogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View w){
+                Intent intent = new Intent(MainLibro.this, MainCatalogo.class);
+
+
+            }
+        });
+
+
     }
 
-    TextView volverCatalogo = findViewById(R.id.volverLibro);
-        volverCatalogo.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View w){
-            logout();
-        }
-    });
+    private void obtenerDatosLibro(){
+
+    }
+
 
 
 
