@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg">
 
-    <!-- Toolbar MODIFICACION -->
+    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
@@ -36,26 +36,93 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/portadaLibro"
+                android:layout_width="100dp"
+                android:layout_height="124dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/tituloLibro"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:text="Entrada-Titulo"
+                android:textSize="32dp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                />
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@tools:sample/avatars" />
+            <TextView
+                android:id="@+id/disponibilidadLibro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Disponible"
+                android:textSize="22dp"
+                android:textColor="@color/titulo"
+                android:gravity="center"
+                />
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
-            </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/autorLibro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:text="Autor"
+                android:drawablePadding="8dp"
+                android:layout_marginTop="16dp"/>
+
+
+            <TextView
+                android:id="@+id/editorialLibro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:text="Editorial"
+                android:drawablePadding="8dp"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:id="@+id/sinopsisLibro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:text="Sinopsis"
+                android:drawablePadding="8dp"
+                android:layout_marginTop="16dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/volverLibro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Volver a catálogo"
+                android:textStyle="italic"
+                android:textColor="@color/enlace"
+                android:layout_gravity="center"
+                />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
