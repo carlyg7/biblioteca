@@ -8,12 +8,26 @@ public class Libro {
     private String sinopsis;
     private String titulo;
 
-    public Libro(String autor, Boolean disponible, String editorial, String sinopsis, String titulo) {
+    private String isbn;
+
+    public Libro() {
+    }
+
+    public Libro(String autor, Boolean disponible, String editorial, String sinopsis, String titulo, String isbn) {
         this.autor = autor;
         this.disponible = disponible;
         this.editorial = editorial;
         this.sinopsis = sinopsis;
         this.titulo = titulo;
+        this.isbn = isbn;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getAutor() {
