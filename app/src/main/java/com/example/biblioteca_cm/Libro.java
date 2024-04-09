@@ -1,5 +1,7 @@
 package com.example.biblioteca_cm;
 
+import android.media.Image;
+
 public class Libro {
 
     private String autor;
@@ -7,19 +9,21 @@ public class Libro {
     private String editorial;
     private String sinopsis;
     private String titulo;
+    private String portada;
 
     private String isbn;
 
     public Libro() {
     }
 
-    public Libro(String autor, Boolean disponible, String editorial, String sinopsis, String titulo, String isbn) {
+    public Libro(String autor, Boolean disponible, String editorial, String sinopsis, String titulo, String isbn, String portada) {
         this.autor = autor;
         this.disponible = disponible;
         this.editorial = editorial;
         this.sinopsis = sinopsis;
         this.titulo = titulo;
         this.isbn = isbn;
+        this.portada = portada;
     }
 
     public String getIsbn() {
@@ -48,6 +52,14 @@ public class Libro {
 
     public String getEditorial() {
         return editorial;
+    }
+
+    public String getPortada() {
+        return portada;
+    }
+
+    public void setPortada(String portada) {
+        this.portada = portada;
     }
 
     public void setEditorial(String editorial) {
