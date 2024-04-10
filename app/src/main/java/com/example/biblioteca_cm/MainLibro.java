@@ -48,6 +48,7 @@ public class MainLibro extends AppCompatActivity {
             @Override
             public void onClick(View w){
                 Intent intent = new Intent(MainLibro.this, MainCatalogo.class);
+                startActivity(intent);
             }
         });
     }
@@ -83,10 +84,10 @@ public class MainLibro extends AppCompatActivity {
                             TextView textViewSinopsis = findViewById(R.id.sinopsisLibro);
                             textViewSinopsis.setText(libro.getSinopsis());
 
-                            ImageView imageViewPortada = findViewById(R.id.portadaLibro);
+                        /*    ImageView imageViewPortada = findViewById(R.id.portadaLibro);
                             String portadaLibro = libro.getPortada();
                             int resID = getResources().getIdentifier(portadaLibro, "drawable", getPackageName());
-                            Picasso.get().load(resID).into(imageViewPortada);
+                            Picasso.get().load(resID).into(imageViewPortada); */
                         } else {
                             Log.d(TAG, "No existe el documento");
                         }
@@ -96,7 +97,7 @@ public class MainLibro extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "Error al obtener los datos del usuario", e);
+                        Log.e(TAG, "Error al obtener los datos del libro", e);
                     }
                 });
 
