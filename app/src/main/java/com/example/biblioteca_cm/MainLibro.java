@@ -3,7 +3,10 @@ package com.example.biblioteca_cm;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -70,9 +73,9 @@ public class MainLibro extends AppCompatActivity {
 
                             TextView textViewDisp = findViewById(R.id.disponibilidadLibro);
                             if(libro.getDisponible()){
-                                textViewDisp.setText("Está disponible");
+                                textViewDisp.setText("Disponible");
                             }else{
-                                textViewDisp.setText("No está disponible");
+                                textViewDisp.setText("N disponible");
                             }
 
                             TextView textViewAutor = findViewById(R.id.autorLibro);
@@ -83,6 +86,15 @@ public class MainLibro extends AppCompatActivity {
 
                             TextView textViewSinopsis = findViewById(R.id.sinopsisLibro);
                             textViewSinopsis.setText(libro.getSinopsis());
+
+                            // Cargar imagen decodificada en Base64
+                            ImageView imageViewPortada = findViewById(R.id.portadaLibro);
+                            String imagenBase64 = libro.getPortada();
+                            byte[] decodedString = Base64.decode(imagenBase64, Base64.DEFAULT);
+                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            imageViewPortada.setImageBitmap(decodedByte);
+
+
 
                         /*    ImageView imageViewPortada = findViewById(R.id.portadaLibro);
                             String portadaLibro = libro.getPortada();
