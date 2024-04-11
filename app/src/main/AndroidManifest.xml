@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".MainLibro"
+            android:name=".MainCatalogo"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Registro"/>
-        <activity android:name=".MainCatalogo"/>
+        <activity android:name=".MainLibro"/>
         <activity android:name=".MainDatosUsuarios"/>
 
 

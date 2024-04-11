@@ -58,7 +58,7 @@ public class MainLibro extends AppCompatActivity {
 
     private void obtenerDatosLibro(){
 
-        db.collection("libro").document("978-84-939750-7-4")
+        db.collection("libro").document("978-84-939750-1-6")
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -75,7 +75,7 @@ public class MainLibro extends AppCompatActivity {
                             if(libro.getDisponible()){
                                 textViewDisp.setText("Disponible");
                             }else{
-                                textViewDisp.setText("N disponible");
+                                textViewDisp.setText("No disponible");
                             }
 
                             TextView textViewAutor = findViewById(R.id.autorLibro);
