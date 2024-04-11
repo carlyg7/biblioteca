@@ -3,6 +3,8 @@ package com.example.biblioteca_cm;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.util.Base64;
 import android.util.TypedValue;
 import android.view.ViewGroup;
@@ -97,7 +99,7 @@ public class MainCatalogo extends AppCompatActivity {
                                 LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(
                                         0,
                                         ViewGroup.LayoutParams.MATCH_PARENT,
-                                        2
+                                        3
                                 );
                                 layout.addView(bookCover, imageParams);
 
@@ -117,7 +119,11 @@ public class MainCatalogo extends AppCompatActivity {
                                         ViewGroup.LayoutParams.MATCH_PARENT,
                                         ViewGroup.LayoutParams.WRAP_CONTENT
                                 ));
-                                bookTitle.setText(libro.getTitulo());
+                                // Establecer el título en negrita y aumentar el tamaño de la letra
+                                SpannableString titleSpan = new SpannableString(libro.getTitulo());
+                                titleSpan.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, titleSpan.length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                bookTitle.setText(titleSpan);
+                                bookTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18); // Tamaño de letra de 18sp
                                 textLayout.addView(bookTitle);
 
                                 TextView bookAuthor = new TextView(MainCatalogo.this);
