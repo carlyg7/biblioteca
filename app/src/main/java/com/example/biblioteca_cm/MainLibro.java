@@ -27,6 +27,8 @@ public class MainLibro extends AppCompatActivity {
 
     private FirebaseFirestore db;
 
+    private String dniUsuario;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +44,13 @@ public class MainLibro extends AppCompatActivity {
             actionBar.hide();
         }
 
+        //Nombre usuario
+        dniUsuario = getIntent().getStringExtra("dniUsuario");
+        mostrarNombreUsu(dniUsuario);
+
         // Obtener datos de libro
-        obtenerDatosLibro();
+        String isbnLibro = getIntent().getStringExtra("libroId");
+        obtenerDatosLibro(isbnLibro);
 
 
         TextView volverCatalogo = findViewById(R.id.volverLibro);
@@ -51,14 +58,15 @@ public class MainLibro extends AppCompatActivity {
             @Override
             public void onClick(View w){
                 Intent intent = new Intent(MainLibro.this, MainCatalogo.class);
+                intent.putExtra("dniUsuario", dniUsuario);
                 startActivity(intent);
             }
         });
     }
 
-    private void obtenerDatosLibro(){
+    private void obtenerDatosLibro(String isbn){
 
-        db.collection("libro").document("978-84-939750-1-6")
+        db.collection("libro").document(isbn)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -113,6 +121,35 @@ public class MainLibro extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    private void mostrarNombreUsu(String dni){
+        // Obtener una referencia al documento del usuario en Firestore
+        db.collection("user").document(dni)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            // Obtener los datos del documento
+                            Usuario usuario = documentSnapshot.toObject(Usuario.class);
+
+                            // Mostrar los datos del usuario en los TextView
+                            TextView textViewName = findViewById(R.id.nombreUsu);
+                            textViewName.setText(usuario.getUsuario());
+
+                        } else {
+                            Log.d(TAG, "No existe el documento");
+                        }
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Error al obtener los datos del usuario", e);
+                    }
+                });
     }
 
 

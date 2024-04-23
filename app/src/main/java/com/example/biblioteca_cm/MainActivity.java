@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                             dniSharedPreferences(dniUsuario);
 
                             // Después de obtener el DNI del usuario, iniciar la actividad MainDatosUsuarios
-                            Intent intent = new Intent(MainActivity.this, MainDatosUsuarios.class);
+                            Intent intent = new Intent(MainActivity.this, MainCatalogo.class);
                             intent.putExtra("dniUsuario", dniUsuario);
                             startActivity(intent);
                         } else {
@@ -164,7 +164,4 @@ public class MainActivity extends AppCompatActivity {
         // Aplicar los cambios
         editor.apply();
     }
-
-
-
 }
