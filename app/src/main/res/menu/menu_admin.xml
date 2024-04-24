@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/enlace_crud_libros"
+        android:title="Gestionar Libros"
+        app:showAsAction="never"
+        app:itemTextAppearance="@style/MenuItemStyle"
+        />
+
+    <item
+        android:id="@+id/enlace_crud_reservas"
+        android:title="Gestionar Reservas"
+        app:showAsAction="never"
+        app:itemTextAppearance="@style/MenuItemStyle"
+        />
+
+    <item
+        android:id="@+id/enlace_perfil2"
+        android:title="Mi Perfil"
+        app:showAsAction="never"
+        app:itemTextAppearance="@style/MenuItemStyle"
+        />
+
+</menu>

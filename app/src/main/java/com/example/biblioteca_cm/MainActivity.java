@@ -131,14 +131,25 @@ public class MainActivity extends AppCompatActivity {
                             // Obtener dni del usuario (clave primaria)
                             DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
                             String dniUsuario = documentSnapshot.getId();
+                            String rolUsuario = documentSnapshot.getString("tipo_user");
 
                             // SharedPreferences -> Aqui es donde vamos a guardar el DNI (id del usuario) para usarlo en otras vistas
                             dniSharedPreferences(dniUsuario);
+                            rolSharedPreferences(rolUsuario);
 
-                            // Después de obtener el DNI del usuario, iniciar la actividad MainDatosUsuarios
-                            Intent intent = new Intent(MainActivity.this, MainCatalogo.class);
-                            intent.putExtra("dniUsuario", dniUsuario);
-                            startActivity(intent);
+                            if("admin".equals(rolUsuario)){
+                                Intent intent = new Intent(MainActivity.this, MainCatalogo.class);
+                                intent.putExtra("dniUsuario", dniUsuario);
+                                intent.putExtra("rolUsuario", rolUsuario);
+                                startActivity(intent);
+                            }
+                            else{
+                                Intent intent = new Intent(MainActivity.this, MainCatalogo.class);
+                                intent.putExtra("dniUsuario", dniUsuario);
+                                intent.putExtra("rolUsuario", rolUsuario);
+                                startActivity(intent);
+                            }
+
                         } else {
                             // No se encontró un usuario con las credenciales proporcionadas
                             Toast.makeText(MainActivity.this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
@@ -161,6 +172,15 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("dniUsuario", dniUsuario);
 
+        // Aplicar los cambios
+        editor.apply();
+    }
+
+    private void rolSharedPreferences(String rolUsuario) {
+        // Obtener una referencia al objeto SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("mySharedPreferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("rolUsuario", rolUsuario);
         // Aplicar los cambios
         editor.apply();
     }

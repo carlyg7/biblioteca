@@ -1,5 +1,6 @@
 package com.example.biblioteca_cm;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +30,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -43,6 +46,7 @@ public class MainCatalogo extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
 
     private String dniUsuario;
+    private String rolUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,7 @@ public class MainCatalogo extends AppCompatActivity {
         //SharedPreferences
         sharedPreferences = getSharedPreferences("mySharedPreferences", MODE_PRIVATE);
         dniUsuario = getIntent().getStringExtra("dniUsuario");
+        rolUsuario = getIntent().getStringExtra("rolUsuario");
 
         //Nombre usuario
         mostrarNombreUsu(dniUsuario);
@@ -81,6 +86,18 @@ public class MainCatalogo extends AppCompatActivity {
         //Mostrar los libros
         mostrarLibros();
 
+        //boton menu
+        FloatingActionButton btn_menu = findViewById(R.id.btn_menu);
+        FloatingActionButton btn_menu_cliente = findViewById(R.id.btn_menu_cliente);
+        if ("admin".equals(rolUsuario)) {
+            // Si el usuario es administrador, muestra el TextView
+            btn_menu.setVisibility(View.VISIBLE);
+            btn_menu_cliente.setVisibility(View.GONE);
+        } else {
+            // Si el usuario no es administrador, oculta el TextView
+            btn_menu.setVisibility(View.GONE);
+            btn_menu_cliente.setVisibility(View.VISIBLE);
+        }
     }
 
     private void agregarCardViewLibro(Libro libro, String libroId) {
@@ -225,5 +242,17 @@ public class MainCatalogo extends AppCompatActivity {
                         Log.e(TAG, "Error al obtener los datos del usuario", e);
                     }
                 });
+    }
+
+    public void showAdminMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.getMenuInflater().inflate(R.menu.menu_admin, popupMenu.getMenu());
+        popupMenu.show();
+    }
+
+    public void showClientMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.getMenuInflater().inflate(R.menu.menu_cliente, popupMenu.getMenu());
+        popupMenu.show();
     }
 }
