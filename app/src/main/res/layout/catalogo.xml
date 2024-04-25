@@ -11,7 +11,7 @@
         android:id="@+id/background_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/bg"
+        android:src="@drawable/bg2"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +64,7 @@
                 app:tint="@color/white"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@id/nombreUsu"
-                android:layout_marginEnd="1dp" />
+                android:layout_marginEnd="3dp" />
 
         </RelativeLayout>
 
@@ -74,41 +74,101 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:id="@+id/linearLayoutBooks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-        </LinearLayout>
+            android:orientation="vertical"></LinearLayout>
     </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_menu_admin"
+        android:layout_marginBottom="90dp"
+        android:layout_marginRight="17dp"
+        android:src="@drawable/ic_add"
         app:backgroundTint="@color/color_principal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:elevation="6dp"
-        android:onClick="showAdminMenu"/>
+        android:onClick="nuevoLibro"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_menu_cliente"
-        android:layout_width="wrap_content"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/menu_admin"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_menu_admin"
-        app:backgroundTint="@color/color_principal"
+        android:background="@color/white"
+        app:tabTextColor="@color/black"
+        app:tabIconTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:elevation="6dp"
-        android:onClick="showClientMenu"/>
+        app:tabMode="fixed">
 
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="catálogo"
+            android:icon="@drawable/ic_book2" />
+
+
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="reservas"
+            android:icon="@drawable/ic_reservas" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="perfil"
+            android:icon="@drawable/ic_user" />
+
+
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/menu_cliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:tabTextColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tabMode="fixed">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="catálogo"
+            android:icon="@drawable/ic_book2" />
+
+
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="mis reservas"
+            android:icon="@drawable/ic_reservas2" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="perfil"
+            android:icon="@drawable/ic_user" />
+
+
+
+    </com.google.android.material.tabs.TabLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,6 +31,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -87,16 +88,19 @@ public class MainCatalogo extends AppCompatActivity {
         mostrarLibros();
 
         //boton menu
-        FloatingActionButton btn_menu = findViewById(R.id.btn_menu);
-        FloatingActionButton btn_menu_cliente = findViewById(R.id.btn_menu_cliente);
+        TabLayout menu_cliente = findViewById(R.id.menu_cliente);
+        TabLayout menu_admin = findViewById(R.id.menu_admin);
+        FloatingActionButton btn_admin = findViewById(R.id.btn_menu);
         if ("admin".equals(rolUsuario)) {
-            // Si el usuario es administrador, muestra el TextView
-            btn_menu.setVisibility(View.VISIBLE);
-            btn_menu_cliente.setVisibility(View.GONE);
+            // Si el usuario es administrador
+            menu_admin.setVisibility(View.VISIBLE);
+            menu_cliente.setVisibility(View.GONE);
+            btn_admin.setVisibility(View.VISIBLE);
         } else {
-            // Si el usuario no es administrador, oculta el TextView
-            btn_menu.setVisibility(View.GONE);
-            btn_menu_cliente.setVisibility(View.VISIBLE);
+            // Si el usuario no es administrador
+            menu_admin.setVisibility(View.GONE);
+            menu_cliente.setVisibility(View.VISIBLE);
+            btn_admin.setVisibility(View.GONE);
         }
     }
 
@@ -242,17 +246,5 @@ public class MainCatalogo extends AppCompatActivity {
                         Log.e(TAG, "Error al obtener los datos del usuario", e);
                     }
                 });
-    }
-
-    public void showAdminMenu(View view) {
-        PopupMenu popupMenu = new PopupMenu(this, view);
-        popupMenu.getMenuInflater().inflate(R.menu.menu_admin, popupMenu.getMenu());
-        popupMenu.show();
-    }
-
-    public void showClientMenu(View view) {
-        PopupMenu popupMenu = new PopupMenu(this, view);
-        popupMenu.getMenuInflater().inflate(R.menu.menu_cliente, popupMenu.getMenu());
-        popupMenu.show();
     }
 }
