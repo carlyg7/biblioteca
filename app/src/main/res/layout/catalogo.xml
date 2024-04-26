@@ -149,6 +149,7 @@
         app:tabMode="fixed">
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/catalogoCl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="catálogo"
@@ -157,18 +158,26 @@
 
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/reservasCl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="mis reservas"
             android:icon="@drawable/ic_reservas2" />
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/perfilCl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="perfil"
             android:icon="@drawable/ic_user" />
-
-
-
     </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </androidx.viewpager.widget.ViewPager>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,9 +50,6 @@
                 tools:ignore="UseAppTint" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
-
-
-
     <!-- CardView -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

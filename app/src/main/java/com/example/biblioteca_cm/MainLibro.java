@@ -57,11 +57,11 @@ public class MainLibro extends AppCompatActivity {
         volverCatalogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View w){
-                Intent intent = new Intent(MainLibro.this, MainCatalogo.class);
-                intent.putExtra("dniUsuario", dniUsuario);
-                startActivity(intent);
+                // Cierra la actividad actual y vuelve a la actividad anterior
+                finish();
             }
         });
+
     }
 
     private void obtenerDatosLibro(String isbn){
@@ -102,12 +102,6 @@ public class MainLibro extends AppCompatActivity {
                             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                             imageViewPortada.setImageBitmap(decodedByte);
 
-
-
-                        /*    ImageView imageViewPortada = findViewById(R.id.portadaLibro);
-                            String portadaLibro = libro.getPortada();
-                            int resID = getResources().getIdentifier(portadaLibro, "drawable", getPackageName());
-                            Picasso.get().load(resID).into(imageViewPortada); */
                         } else {
                             Log.d(TAG, "No existe el documento");
                         }

@@ -1,0 +1,94 @@
+package com.example.biblioteca_cm;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
+import android.util.Base64;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+
+import com.example.biblioteca_cm.Libro;
+import com.example.biblioteca_cm.MainDatosUsuarios;
+import com.example.biblioteca_cm.MainLibro;
+import com.example.biblioteca_cm.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+public class MainReservas extends Fragment {
+
+    private LinearLayout linearLayoutBooks;
+    private FirebaseFirestore db;
+    private static final String TAG = "MainCatalogo";
+    private SharedPreferences sharedPreferences;
+
+    private String dniUsuario;
+    private String rolUsuario;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_reservas, container, false);
+
+        // Inicializar Firestore
+        db = FirebaseFirestore.getInstance();
+        // SharedPreferences
+        sharedPreferences = requireActivity().getSharedPreferences("mySharedPreferences", requireActivity().MODE_PRIVATE);
+        dniUsuario = requireActivity().getIntent().getStringExtra("dniUsuario");
+        rolUsuario = requireActivity().getIntent().getStringExtra("rolUsuario");
+
+        // Nombre usuario
+        mostrarNombreUsu(dniUsuario);
+
+        return view;
+    }
+
+    private void mostrarNombreUsu(String dni){
+        // Obtener una referencia al documento del usuario en Firestore
+        db.collection("user").document(dni)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            // Obtener los datos del documento
+                            Usuario usuario = documentSnapshot.toObject(Usuario.class);
+
+                            // Mostrar los datos del usuario en los TextView
+                            TextView textViewName = getView().findViewById(R.id.nombreUsu);
+                            textViewName.setText(usuario.getUsuario());
+
+                        } else {
+                            Log.d(TAG, "No existe el documento");
+                        }
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Error al obtener los datos del usuario", e);
+                    }
+                });
+    }
+}

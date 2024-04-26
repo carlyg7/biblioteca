@@ -1,6 +1,5 @@
 package com.example.biblioteca_cm;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -11,35 +10,32 @@ import android.text.style.StyleSpan;
 import android.util.Base64;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import android.graphics.Color;
+import androidx.fragment.app.Fragment;
 
+import com.example.biblioteca_cm.Libro;
+import com.example.biblioteca_cm.MainDatosUsuarios;
+import com.example.biblioteca_cm.MainLibro;
+import com.example.biblioteca_cm.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.Objects;
-
-public class MainCatalogo extends AppCompatActivity {
+public class MainCatalogo extends Fragment {
 
     private LinearLayout linearLayoutBooks;
     private FirebaseFirestore db;
@@ -49,59 +45,27 @@ public class MainCatalogo extends AppCompatActivity {
     private String dniUsuario;
     private String rolUsuario;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.catalogo);
-
-        // Ocultar ActionBar
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_catalogo, container, false);
 
         // Inicializar Firestore
         db = FirebaseFirestore.getInstance();
-        //SharedPreferences
-        sharedPreferences = getSharedPreferences("mySharedPreferences", MODE_PRIVATE);
-        dniUsuario = getIntent().getStringExtra("dniUsuario");
-        rolUsuario = getIntent().getStringExtra("rolUsuario");
+        // SharedPreferences
+        sharedPreferences = requireActivity().getSharedPreferences("mySharedPreferences", requireActivity().MODE_PRIVATE);
+        dniUsuario = requireActivity().getIntent().getStringExtra("dniUsuario");
+        rolUsuario = requireActivity().getIntent().getStringExtra("rolUsuario");
 
-        //Nombre usuario
+        // Nombre usuario
         mostrarNombreUsu(dniUsuario);
 
-        // Enlace perfil
-        RelativeLayout link = findViewById(R.id.btn_perfil);
-        link.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Iniciar la actividad de registro
-                Intent intent = new Intent(MainCatalogo.this, MainDatosUsuarios.class);
-                intent.putExtra("dniUsuario", dniUsuario);
-                startActivity(intent);
-            }
-        });
-
         // Obtener una referencia al LinearLayout donde se agregarán las CardViews
-        linearLayoutBooks = findViewById(R.id.linearLayoutBooks);
-        //Mostrar los libros
+        linearLayoutBooks = view.findViewById(R.id.linearLayoutBooks);
+        // Mostrar los libros
         mostrarLibros();
 
-        //boton menu
-        TabLayout menu_cliente = findViewById(R.id.menu_cliente);
-        TabLayout menu_admin = findViewById(R.id.menu_admin);
-        FloatingActionButton btn_admin = findViewById(R.id.btn_menu);
-        if ("admin".equals(rolUsuario)) {
-            // Si el usuario es administrador
-            menu_admin.setVisibility(View.VISIBLE);
-            menu_cliente.setVisibility(View.GONE);
-            btn_admin.setVisibility(View.VISIBLE);
-        } else {
-            // Si el usuario no es administrador
-            menu_admin.setVisibility(View.GONE);
-            menu_cliente.setVisibility(View.VISIBLE);
-            btn_admin.setVisibility(View.GONE);
-        }
+        return view;
     }
 
     private void agregarCardViewLibro(Libro libro, String libroId) {
@@ -109,36 +73,30 @@ public class MainCatalogo extends AppCompatActivity {
         byte[] decodedString = Base64.decode(libro.getPortada(), Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
-        // Crear una nueva CardView con márgenes y padding configurados
-        CardView cardView = new CardView(this);
-        CardView.LayoutParams cardLayoutParams = new CardView.LayoutParams(
+        // Crear una nueva CardView
+        CardView cardView = new CardView(requireContext());
+        LinearLayout.LayoutParams cardLayoutParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
 
-        // Configurar márgenes
+        // Configurar márgenes y padding
         int margin = 16; // Valor en dp
         int marginPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, margin, getResources().getDisplayMetrics());
         cardLayoutParams.setMargins(marginPx, marginPx, marginPx, marginPx);
-
         cardView.setLayoutParams(cardLayoutParams);
-
-        // Configurar padding
-        int padding = 20; // Valor en dp
-        int paddingPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, padding, getResources().getDisplayMetrics());
-        cardView.setContentPadding(paddingPx, paddingPx, paddingPx, paddingPx);
-
-        cardView.setCardBackgroundColor(Color.WHITE);
+        cardView.setContentPadding(marginPx, marginPx, marginPx, marginPx);
+        cardView.setCardBackgroundColor(requireContext().getColor(android.R.color.white));
         cardView.setCardElevation(10);
         cardView.setRadius(25);
 
         // Configurar las vistas dentro de la CardView
-        LinearLayout layout = new LinearLayout(this);
+        LinearLayout layout = new LinearLayout(requireContext());
         layout.setOrientation(LinearLayout.HORIZONTAL);
         cardView.addView(layout);
 
         // Agregar la imagen a la izquierda
-        ImageView bookCover = new ImageView(this);
+        ImageView bookCover = new ImageView(requireContext());
         bookCover.setImageBitmap(decodedByte);
         LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(
                 0,
@@ -148,7 +106,7 @@ public class MainCatalogo extends AppCompatActivity {
         layout.addView(bookCover, imageParams);
 
         // Crear un LinearLayout vertical para el título y el autor a la derecha
-        LinearLayout textLayout = new LinearLayout(this);
+        LinearLayout textLayout = new LinearLayout(requireContext());
         textLayout.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(
                 0,
@@ -158,7 +116,7 @@ public class MainCatalogo extends AppCompatActivity {
         layout.addView(textLayout, textParams);
 
         // Obtener referencias a las vistas dentro del textLayout
-        TextView bookTitle = new TextView(this);
+        TextView bookTitle = new TextView(requireContext());
         bookTitle.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -170,7 +128,7 @@ public class MainCatalogo extends AppCompatActivity {
         bookTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18); // Tamaño de letra de 18sp
         textLayout.addView(bookTitle);
 
-        TextView bookAuthor = new TextView(this);
+        TextView bookAuthor = new TextView(requireContext());
         bookAuthor.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -188,7 +146,7 @@ public class MainCatalogo extends AppCompatActivity {
                 editor.apply();
 
                 // Redirigir a MainLibro
-                Intent intent = new Intent(MainCatalogo.this, MainLibro.class);
+                Intent intent = new Intent(requireActivity(), MainLibro.class);
                 intent.putExtra("libroId", libroId);
                 intent.putExtra("dniUsuario", dniUsuario);
                 startActivity(intent);
@@ -197,8 +155,8 @@ public class MainCatalogo extends AppCompatActivity {
 
         // Agregar la CardView al LinearLayout
         linearLayoutBooks.addView(cardView);
+        Log.d(TAG, "CardView agregada para el libro: " + libro.getTitulo());
     }
-
     private void mostrarLibros() {
         // Consulta a Firestore para obtener los datos de libros
         db.collection("libro")
@@ -213,7 +171,7 @@ public class MainCatalogo extends AppCompatActivity {
                                 agregarCardViewLibro(libro, libroId);
                             }
                         } else {
-                            Toast.makeText(MainCatalogo.this, "Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -231,7 +189,7 @@ public class MainCatalogo extends AppCompatActivity {
                             Usuario usuario = documentSnapshot.toObject(Usuario.class);
 
                             // Mostrar los datos del usuario en los TextView
-                            TextView textViewName = findViewById(R.id.nombreUsu);
+                            TextView textViewName = getView().findViewById(R.id.nombreUsu);
                             textViewName.setText(usuario.getUsuario());
 
                         } else {
