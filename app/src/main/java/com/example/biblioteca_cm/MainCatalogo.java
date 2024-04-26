@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -57,13 +58,22 @@ public class MainCatalogo extends Fragment {
         dniUsuario = requireActivity().getIntent().getStringExtra("dniUsuario");
         rolUsuario = requireActivity().getIntent().getStringExtra("rolUsuario");
 
-        // Nombre usuario
-        mostrarNombreUsu(dniUsuario);
-
         // Obtener una referencia al LinearLayout donde se agregarán las CardViews
         linearLayoutBooks = view.findViewById(R.id.linearLayoutBooks);
         // Mostrar los libros
         mostrarLibros();
+
+        //Boton de agregar libros solo para administrador
+        TextView anadirlibro = view.findViewById(R.id.anadirlibro);
+        ImageView anadirlibro2 = view.findViewById(R.id.anadirlibro2);
+        if("admin".equals(rolUsuario)){
+            anadirlibro.setVisibility(View.VISIBLE);
+            anadirlibro2.setVisibility(View.VISIBLE);
+        }
+        else{
+            anadirlibro.setVisibility(View.GONE);
+            anadirlibro2.setVisibility(View.GONE);
+        }
 
         return view;
     }
@@ -173,35 +183,6 @@ public class MainCatalogo extends Fragment {
                         } else {
                             Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT).show();
                         }
-                    }
-                });
-    }
-
-    private void mostrarNombreUsu(String dni){
-        // Obtener una referencia al documento del usuario en Firestore
-        db.collection("user").document(dni)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) {
-                            // Obtener los datos del documento
-                            Usuario usuario = documentSnapshot.toObject(Usuario.class);
-
-                            // Mostrar los datos del usuario en los TextView
-                            TextView textViewName = getView().findViewById(R.id.nombreUsu);
-                            textViewName.setText(usuario.getUsuario());
-
-                        } else {
-                            Log.d(TAG, "No existe el documento");
-                        }
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "Error al obtener los datos del usuario", e);
                     }
                 });
     }

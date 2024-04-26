@@ -40,25 +40,31 @@
 
         <!-- Posicionar la imagen a la derecha -->
         <RelativeLayout
+            android:id="@+id/btn_perfil"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true"
-                android:layout_weight="1" />
 
-            <ImageView
+            <!-- TextView para el nombre -->
+            <TextView
                 android:id="@+id/btn_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_logout"
-                android:tint="@color/white"
+                android:text="Cerrar Sesión"
+                android:textColor="@color/white"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="16dp"
-                tools:ignore="UseAppTint" />
+                android:layout_marginEnd="10dp" />
+
+            <!-- ImageView para la imagen -->
+            <ImageView
+                android:id="@+id/anadirlibro2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_logout"
+                app:tint="@color/white"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/btn_logout"
+                android:layout_marginEnd="3dp" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
     <!-- CardView -->
@@ -170,7 +176,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Cerrar Sesión"
+                android:text="Editar Perfil"
                 android:textColor="@color/enlace"
                 android:textStyle="italic" />
         </LinearLayout>

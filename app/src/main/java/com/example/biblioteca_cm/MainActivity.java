@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                             rolSharedPreferences(rolUsuario);
 
                             if("admin".equals(rolUsuario)){
-                                Intent intent = new Intent(MainActivity.this, MainCatalogo.class);
+                                Intent intent = new Intent(MainActivity.this, MainMenu.class);
                                 intent.putExtra("dniUsuario", dniUsuario);
                                 intent.putExtra("rolUsuario", rolUsuario);
                                 startActivity(intent);

@@ -47,32 +47,32 @@
 
             <!-- TextView para el nombre -->
             <TextView
-                android:id="@+id/nombreUsu"
+                android:id="@+id/anadirlibro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre"
+                android:text="Añadir Libro"
                 android:textColor="@color/white"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="16dp" />
+                android:layout_marginEnd="10dp" />
 
             <!-- ImageView para la imagen -->
             <ImageView
+                android:id="@+id/anadirlibro2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_perfil"
+                android:src="@drawable/ic_anadir_libro"
                 app:tint="@color/white"
                 android:layout_centerVertical="true"
-                android:layout_toStartOf="@id/nombreUsu"
+                android:layout_toStartOf="@id/anadirlibro"
                 android:layout_marginEnd="3dp" />
-
         </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
     <!-- Contenido de la vista -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="655dp"
+        android:layout_height="661dp"
         android:layout_marginTop="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,4 +85,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"></LinearLayout>
     </ScrollView>
+    <!--
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="17dp"
+        android:layout_marginBottom="90dp"
+        android:onClick="nuevoLibro"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/color_principal"
+        app:elevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" /> -->
 </FrameLayout>

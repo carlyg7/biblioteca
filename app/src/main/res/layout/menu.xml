@@ -32,7 +32,7 @@
             android:id="@+id/reservasCl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="mis reservas"
+            android:text="reservas"
             android:icon="@drawable/ic_reservas2" />
 
         <com.google.android.material.tabs.TabItem

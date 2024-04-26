@@ -41,19 +41,10 @@ public class MainDatosUsuarios extends Fragment {
         obtenerDatosUsuario(dniUsuario);
 
         // Obtener referencia de icono cerrar sesion
-        ImageView cerrarSesion = view.findViewById(R.id.btn_logout);
+        TextView cerrarSesion = view.findViewById(R.id.btn_logout);
         cerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                logout();
-            }
-        });
-
-        //cerrar sesion enlace
-        TextView cerrarSesion2 = view.findViewById(R.id.enlace_logout);
-        cerrarSesion2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View w) {
                 logout();
             }
         });

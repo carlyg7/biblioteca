@@ -57,38 +57,7 @@ public class MainReservas extends Fragment {
         dniUsuario = requireActivity().getIntent().getStringExtra("dniUsuario");
         rolUsuario = requireActivity().getIntent().getStringExtra("rolUsuario");
 
-        // Nombre usuario
-        mostrarNombreUsu(dniUsuario);
 
         return view;
-    }
-
-    private void mostrarNombreUsu(String dni){
-        // Obtener una referencia al documento del usuario en Firestore
-        db.collection("user").document(dni)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) {
-                            // Obtener los datos del documento
-                            Usuario usuario = documentSnapshot.toObject(Usuario.class);
-
-                            // Mostrar los datos del usuario en los TextView
-                            TextView textViewName = getView().findViewById(R.id.nombreUsu);
-                            textViewName.setText(usuario.getUsuario());
-
-                        } else {
-                            Log.d(TAG, "No existe el documento");
-                        }
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "Error al obtener los datos del usuario", e);
-                    }
-                });
     }
 }
