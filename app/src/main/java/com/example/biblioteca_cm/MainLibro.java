@@ -27,7 +27,7 @@ public class MainLibro extends AppCompatActivity {
 
     private FirebaseFirestore db;
 
-    private String dniUsuario;
+    private String rolUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class MainLibro extends AppCompatActivity {
         }
 
         //Nombre usuario
-        dniUsuario = getIntent().getStringExtra("dniUsuario");
+        rolUsuario = getIntent().getStringExtra("rolUsuario");
 
         // Obtener datos de libro
         String isbnLibro = getIntent().getStringExtra("libroId");
@@ -61,6 +61,25 @@ public class MainLibro extends AppCompatActivity {
             }
         });
 
+        //Botones solo para admin
+        TextView borrarlibro = findViewById(R.id.borrarlibro);
+        ImageView borrarlibro2 = findViewById(R.id.borrarlibro2);
+        TextView modlibro = findViewById(R.id.modlibro);
+        ImageView modlibro2 = findViewById(R.id.modlibro2);
+
+        if ("admin".equals(rolUsuario)) {
+            // Si el usuario es administrador
+            borrarlibro.setVisibility(View.VISIBLE);
+            borrarlibro2.setVisibility(View.VISIBLE);
+            modlibro.setVisibility(View.VISIBLE);
+            modlibro2.setVisibility(View.VISIBLE);
+        } else {
+            // Si el usuario no es administrador
+            borrarlibro.setVisibility(View.GONE);
+            borrarlibro2.setVisibility(View.GONE);
+            modlibro.setVisibility(View.GONE);
+            modlibro2.setVisibility(View.GONE);
+        }
     }
 
     private void obtenerDatosLibro(String isbn){

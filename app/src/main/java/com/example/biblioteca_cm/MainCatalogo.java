@@ -158,7 +158,7 @@ public class MainCatalogo extends Fragment {
                 // Redirigir a MainLibro
                 Intent intent = new Intent(requireActivity(), MainLibro.class);
                 intent.putExtra("libroId", libroId);
-                intent.putExtra("dniUsuario", dniUsuario);
+                intent.putExtra("rolUsuario", rolUsuario);
                 startActivity(intent);
             }
         });

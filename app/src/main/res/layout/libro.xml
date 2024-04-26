@@ -34,6 +34,50 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <!-- TextView para el nombre -->
+            <TextView
+                android:id="@+id/modlibro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Modificar"
+                android:textColor="@color/white"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="100dp" />
+
+            <!-- ImageView para la imagen -->
+            <ImageView
+                android:id="@+id/modlibro2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit"
+                app:tint="@color/white"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/modlibro"
+                android:layout_marginEnd="1dp" />
+
+            <!-- TextView para el nombre -->
+            <TextView
+                android:id="@+id/borrarlibro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eliminar"
+                android:textColor="@color/white"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp" />
+
+            <!-- ImageView para la imagen -->
+            <ImageView
+                android:id="@+id/borrarlibro2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_delete"
+                app:tint="@color/white"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/borrarlibro"
+                android:layout_marginEnd="1dp" />
+
         </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
