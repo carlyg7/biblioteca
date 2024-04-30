@@ -41,7 +41,7 @@
 
         <!-- Posicionar la imagen a la derecha -->
         <RelativeLayout
-            android:id="@+id/btn_perfil"
+            android:id="@+id/btn_anadirLibro"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

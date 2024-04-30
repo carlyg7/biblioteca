@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -75,7 +76,19 @@ public class MainCatalogo extends Fragment {
             anadirlibro2.setVisibility(View.GONE);
         }
 
+        RelativeLayout boton_anadir_libro = view.findViewById(R.id.btn_anadirLibro);
+        boton_anadir_libro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Iniciar la actividad de registro
+                Intent intent = new Intent(requireActivity(), MainNuevoLibro.class);
+                startActivity(intent);
+            }
+        });
+
+
         return view;
+
     }
 
     private void agregarCardViewLibro(Libro libro, String libroId) {
