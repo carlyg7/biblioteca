@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -24,8 +24,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import android.content.Context;
 
 public class MainDatosUsuarios extends Fragment {
+
+    private static final int REQUEST_CODE_MODIFY_USER = 1; // Código de solicitud para startActivityForResult
     private FirebaseFirestore db;
     private static final String TAG = "MainDatosUsuarios";
+    private String dniUsuario;
 
     @Nullable
     @Override
@@ -37,7 +40,7 @@ public class MainDatosUsuarios extends Fragment {
         db = FirebaseFirestore.getInstance();
 
         // Obtener el dni del usuario del que queremos mostrar los datos, guardado en SharedPreferences
-        String dniUsuario = requireActivity().getIntent().getStringExtra("dniUsuario");
+        dniUsuario = requireActivity().getIntent().getStringExtra("dniUsuario");
         obtenerDatosUsuario(dniUsuario);
 
         // Obtener referencia de icono cerrar sesion
@@ -49,6 +52,17 @@ public class MainDatosUsuarios extends Fragment {
             }
         });
 
+        // Obtener referencia de icono cerrar sesion
+        TextView editar_perfil = view.findViewById(R.id.enl_editar_prefil);
+        editar_perfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Abrir ModifyUser para editar el usuario
+                Intent intent = new Intent(requireActivity(), ModifyUser.class);
+                intent.putExtra("dniUsuario", dniUsuario);
+                startActivityForResult(intent, REQUEST_CODE_MODIFY_USER); // Usar startActivityForResult
+            }
+        });
         return view;
     }
 
@@ -97,6 +111,15 @@ public class MainDatosUsuarios extends Fragment {
                         Log.e(TAG, "Error al obtener los datos del usuario", e);
                     }
                 });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_MODIFY_USER && resultCode == AppCompatActivity.RESULT_OK) {
+            // Si la edición del usuario se realizó correctamente, recarga los datos del usuario
+            obtenerDatosUsuario(dniUsuario);
+        }
     }
 
     private void logout() {

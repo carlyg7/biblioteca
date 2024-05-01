@@ -41,6 +41,7 @@ public class MainNuevoLibro extends AppCompatActivity {
     private static final String TAG = "Añadir Libro";
     private String imagenBase64;
     private String rolUsuario;
+    private String dniUsuario;
 
     private static final int REQUEST_MEDIA_PERMISSION = 101;
 
@@ -81,6 +82,7 @@ public class MainNuevoLibro extends AppCompatActivity {
         }
 
         rolUsuario = getIntent().getStringExtra("rolUsuario");
+        dniUsuario = getIntent().getStringExtra("dniUsuario");
         Log.d(TAG, "rolUsuario:::::::::::::::::::: " + rolUsuario); // Agregar este log
 
 
@@ -173,6 +175,7 @@ public class MainNuevoLibro extends AppCompatActivity {
                                             Intent intent = new Intent(MainNuevoLibro.this, MainMenu.class);
                                             Log.d(TAG, "rolUsuario: " + rolUsuario); // Agregar este log
                                             intent.putExtra("rolUsuario", rolUsuario);
+                                            intent.putExtra("dniUsuario", dniUsuario);
                                             startActivity(intent);
                                             finish(); // Cierra la actividad actual para que el usuario no pueda regresar con el botón de retroceso
 

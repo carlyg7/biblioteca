@@ -29,6 +29,7 @@ public class MainLibro extends AppCompatActivity {
     private FirebaseFirestore db;
 
     private String rolUsuario;
+    private String dniUsuario;
     private SharedPreferences sharedPreferences;
 
 
@@ -49,6 +50,7 @@ public class MainLibro extends AppCompatActivity {
 
         //Nombre usuario
         rolUsuario = getIntent().getStringExtra("rolUsuario");
+        dniUsuario = getIntent().getStringExtra("dniUsuario");
 
         // Obtener datos de libro
         String isbnLibro = getIntent().getStringExtra("libroId");
@@ -91,6 +93,7 @@ public class MainLibro extends AppCompatActivity {
                 Intent intent = new Intent(MainLibro.this, MainEditarLibro.class);
                 intent.putExtra("isbnLibro", isbnLibro);
                 intent.putExtra("rolUsuario", rolUsuario);
+                intent.putExtra("dniUsuario", dniUsuario);
                 startActivity(intent);
             }
         });
@@ -102,6 +105,7 @@ public class MainLibro extends AppCompatActivity {
                 Intent intent = new Intent(MainLibro.this, MainBorrarLibro.class);
                 intent.putExtra("isbnLibro", isbnLibro);
                 intent.putExtra("rolUsuario", rolUsuario);
+                intent.putExtra("dniUsuario", dniUsuario);
                 startActivity(intent);
             }
         });

@@ -106,17 +106,6 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
                 />
-
-            <TextView
-                android:id="@+id/sin_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Acceder sin registrarse"
-                android:textStyle="italic"
-                android:textColor="@color/enlace"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

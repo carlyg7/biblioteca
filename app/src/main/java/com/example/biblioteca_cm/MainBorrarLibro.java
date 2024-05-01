@@ -30,6 +30,7 @@ public class MainBorrarLibro extends AppCompatActivity {
 
     private String rolUsuario;
     private String isbnLibro;
+    private String dniUsuario;
     private SharedPreferences sharedPreferences;
 
 
@@ -50,6 +51,8 @@ public class MainBorrarLibro extends AppCompatActivity {
 
         //Nombre usuario
         rolUsuario = getIntent().getStringExtra("rolUsuario");
+        dniUsuario = getIntent().getStringExtra("dniUsuario");
+
         // Obtener datos de libro
         isbnLibro = getIntent().getStringExtra("isbnLibro");
         obtenerDatosLibro(isbnLibro);
@@ -122,6 +125,7 @@ public class MainBorrarLibro extends AppCompatActivity {
                         // Una vez borrado, iniciar la actividad MainMenu
                         Intent intent = new Intent(MainBorrarLibro.this, MainMenu.class);
                         intent.putExtra("rolUsuario", rolUsuario);
+                        intent.putExtra("dniUsuario", dniUsuario);
                         startActivity(intent);
                         finish(); // Finaliza esta actividad para evitar volver atrás con el botón de retroceso
                     }

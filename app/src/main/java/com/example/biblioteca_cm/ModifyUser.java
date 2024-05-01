@@ -3,27 +3,25 @@ package com.example.biblioteca_cm;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ImageView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.squareup.picasso.Picasso;
 
 public class ModifyUser extends AppCompatActivity {
 
     private String rolUsuario;
+    private String dniUsuario;
     private FirebaseFirestore db;
     private static final String TAG = "ModifyUser";
-    private Usuario usuario; // Define la variable usuario aquí
+    private Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +32,30 @@ public class ModifyUser extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         db = FirebaseFirestore.getInstance();
 
+        // Ocultar ActionBar
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+
+        //Nombre usuario
+        rolUsuario = getIntent().getStringExtra("rolUsuario");
+        dniUsuario = getIntent().getStringExtra("dniUsuario");
+
+        mostrarDatosUsuario(dniUsuario);
+
+        findViewById(R.id.btn_mod_user).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editarUsuario(dniUsuario);
+            }
+        });
+
+    }
+
+    private void mostrarDatosUsuario(String dniUsuario) {
         // Obtener una referencia al documento del usuario en Firestore
-        db.collection("user").document("04445678S")
+        db.collection("user").document(dniUsuario)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -66,7 +86,6 @@ public class ModifyUser extends AppCompatActivity {
                         Log.e(TAG, "Error al obtener los detalles del usuario", e);
                     }
                 });
-
     }
 
     private void editarUsuario(String dni) {
@@ -86,36 +105,38 @@ public class ModifyUser extends AppCompatActivity {
             return; // Detener la ejecución de la función si hay campos vacíos
         }
 
-        String tipo_user = "cliente";
+        // Modificar los campos del usuario obtenido de Firestore
+        usuario.setNombre(nombre);
+        usuario.setApellidos(apellidos);
+        usuario.setUsuario(user);
+        usuario.setPassword(password);
+        usuario.setCorreo(correo);
+        usuario.setTelefono(telefono);
 
-        // Utilizar la variable usuario definida anteriormente
-        String nombreImagen = usuario.getImg(); // Suponiendo que getImg() devuelve el nombre de la imagen
-        int resID = getResources().getIdentifier(nombreImagen, "drawable", getPackageName());
-        ImageView imageViewPerfil = findViewById(R.id.imageViewPerfil);
-        Picasso.get().load(resID).into(imageViewPerfil);
-
-        Usuario editUser = new Usuario(nombre, apellidos, user, password, correo, dni, tipo_user, telefono, nombreImagen);
         // Actualizar el Usuario en la base de datos
-        actualizarUsuario(dni, editUser);
+        actualizarUsuario(dni, usuario);
     }
 
     private void actualizarUsuario(String dni, Usuario editUser) {
         db.collection("user")
-                .document("04445678S") // Utilizar el dni como clave única
+                .document(dni) // Utilizar el dni como clave única
                 .set(editUser)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(ModifyUser.this, "Usuario editado correctamente", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(ModifyUser.this, MainMenu.class);
+                        // Envía un mensaje de vuelta a MainDatosUsuarios indicando que la edición se realizó correctamente
+                        Intent intent = new Intent();
+                        intent.putExtra("usuario_editado", true);
+                        intent.putExtra("dniUsuario", dniUsuario);
                         intent.putExtra("rolUsuario", rolUsuario);
-                        startActivity(intent);
+                        setResult(RESULT_OK, intent);
                         finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
-                    public void onFailure(@android.support.annotation.NonNull Exception e) {
+                    public void onFailure(@androidx.annotation.NonNull Exception e) {
                         Log.e(TAG, "Error al editar libro", e);
                         Toast.makeText(ModifyUser.this, "Error al editar usuario", Toast.LENGTH_SHORT).show();
                     }

@@ -69,15 +69,6 @@
                 android:textColor="@color/black"
                 />
 
-            <ImageView
-                android:id="@+id/imageViewPerfil"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:scaleType="centerCrop" />
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutName"
                 android:layout_width="match_parent"

@@ -38,6 +38,7 @@ public class MainEditarLibro extends AppCompatActivity {
     private String imagenBase64;
 
     private String rolUsuario;
+    private String dniUsuario;
 
     ActivityResultLauncher<String> galleryLauncher = registerForActivityResult(
             new ActivityResultContracts.GetContent(),
@@ -75,8 +76,7 @@ public class MainEditarLibro extends AppCompatActivity {
         // Obtener datos de libro
         String isbn = getIntent().getStringExtra("isbnLibro");
         rolUsuario = getIntent().getStringExtra("rolUsuario");
-        Log.d(TAG, "ISBN del libro a editar: " + isbn); // Log para comprobar el ISBN
-
+        dniUsuario = getIntent().getStringExtra("dniUsuario");
 
         // Consultar la base de datos para obtener los detalles del libro
         db.collection("libro")
@@ -211,6 +211,7 @@ public class MainEditarLibro extends AppCompatActivity {
                         Toast.makeText(MainEditarLibro.this, "Libro editado correctamente", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainEditarLibro.this, MainMenu.class);
                         intent.putExtra("rolUsuario", rolUsuario);
+                        intent.putExtra("dniUsuario", dniUsuario);
                         startActivity(intent);
                         finish();
                     }

@@ -59,6 +59,7 @@ public class MainCatalogo extends Fragment {
         dniUsuario = requireActivity().getIntent().getStringExtra("dniUsuario");
         rolUsuario = requireActivity().getIntent().getStringExtra("rolUsuario");
 
+
         // Obtener una referencia al LinearLayout donde se agregarán las CardViews
         linearLayoutBooks = view.findViewById(R.id.linearLayoutBooks);
         // Mostrar los libros
@@ -83,6 +84,7 @@ public class MainCatalogo extends Fragment {
                 // Iniciar la actividad de registro
                 Intent intent = new Intent(requireActivity(), MainNuevoLibro.class);
                 intent.putExtra("rolUsuario", rolUsuario);
+                intent.putExtra("dniUsuario", dniUsuario);
                 startActivity(intent);
             }
         });
@@ -173,6 +175,7 @@ public class MainCatalogo extends Fragment {
                 Intent intent = new Intent(requireActivity(), MainLibro.class);
                 intent.putExtra("libroId", libroId);
                 intent.putExtra("rolUsuario", rolUsuario);
+                intent.putExtra("dniUsuario", dniUsuario);
                 startActivity(intent);
             }
         });
