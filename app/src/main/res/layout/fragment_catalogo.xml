@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Controlador.Catalogo">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Fondo -->
     <ImageView
@@ -12,11 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/bg"
-        android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:scaleType="centerCrop" />
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
@@ -25,38 +20,16 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/color_principal"
         app:title="BiblioGestor"
-        app:titleTextColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" >
+        app:titleTextColor="@color/white" >
 
-        <TextView
-            android:id="@+id/toolbar_title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="BiblioGestor"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            />
-
-        <!-- Posicionar la imagen a la derecha -->
+        <!-- Botón Añadir Libro -->
         <RelativeLayout
             android:id="@+id/btn_anadirLibro"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp">
 
-            <!-- TextView para el nombre -->
-            <TextView
-                android:id="@+id/anadirlibro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Añadir Libro"
-                android:textColor="@color/white"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="10dp" />
-
-            <!-- ImageView para la imagen -->
             <ImageView
                 android:id="@+id/anadirlibro2"
                 android:layout_width="wrap_content"
@@ -64,38 +37,36 @@
                 android:src="@drawable/ic_anadir_libro"
                 app:tint="@color/white"
                 android:layout_centerVertical="true"
-                android:layout_toStartOf="@id/anadirlibro"
+                android:layout_marginEnd="3dp" />
+
+            <TextView
+                android:id="@+id/anadirlibro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Añadir Libro"
+                android:textColor="@color/white"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/anadirlibro2"
                 android:layout_marginEnd="3dp" />
         </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
+
     <!-- Contenido de la vista -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="661dp"
-        android:layout_marginTop="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:clipToPadding="false">
 
         <LinearLayout
             android:id="@+id/linearLayoutBooks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp" />
+
     </ScrollView>
-    <!--
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="17dp"
-        android:layout_marginBottom="90dp"
-        android:onClick="nuevoLibro"
-        android:src="@drawable/ic_add"
-        app:backgroundTint="@color/color_principal"
-        app:elevation="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" /> -->
+
 </FrameLayout>
