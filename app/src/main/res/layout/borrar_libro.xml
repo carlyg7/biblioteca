@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Fondo -->
+    <ImageView
+        android:id="@+id/background_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg"
+        android:scaleType="centerCrop"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+    <!-- Barra de herramientas -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/color_principal"
+        app:title="BiblioGestor"
+        app:titleTextColor="@color/white"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <!-- CardView -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:padding="16dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="15dp"
+        android:background="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        >
+
+        <!-- Contenido del CardView -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <!-- Imagen de la portada del libro -->
+            <ImageView
+                android:id="@+id/portadaLibro"
+                android:layout_width="136dp"
+                android:layout_height="215dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:scaleType="centerCrop" />
+
+            <!-- Título del libro -->
+            <TextView
+                android:id="@+id/tituloLibro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/portadaLibro"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="Entrada-Titulo"
+                android:textColor="@color/black"
+                android:textSize="28dp" />
+
+            <!-- Texto de confirmación -->
+            <TextView
+                android:id="@+id/txt_borrar_libro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tituloLibro"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="24dp"
+                android:text="¿Estás seguro de borrar este libro?"
+                android:textSize="18sp" />
+
+            <!-- Botón Sí -->
+            <Button
+                android:id="@+id/btn_confirmar_borrar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_borrar_libro"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/success"
+                android:text="Sí"
+                android:textSize="18sp" />
+
+            <!-- Botón No -->
+            <Button
+                android:id="@+id/btn_cancelar_borrar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_borrar_libro"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/danger"
+                android:text="No"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

@@ -5,5 +5,6 @@
     <color name="color_principal">#FF9736</color>
     <color name="titulo">#2196F3</color>
     <color name="enlace">#FF8222</color>
-
+    <color name="success">#4CAF50</color>
+    <color name="danger">#D63529</color>
 </resources>

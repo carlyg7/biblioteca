@@ -82,6 +82,7 @@ public class MainCatalogo extends Fragment {
             public void onClick(View v) {
                 // Iniciar la actividad de registro
                 Intent intent = new Intent(requireActivity(), MainNuevoLibro.class);
+                intent.putExtra("rolUsuario", rolUsuario);
                 startActivity(intent);
             }
         });

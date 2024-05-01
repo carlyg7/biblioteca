@@ -31,6 +31,8 @@
         <activity android:name=".MainCatalogo"/>
         <activity android:name=".MainMenu"/>
         <activity android:name=".MainNuevoLibro" />
+        <activity android:name=".MainEditarLibro" />
+        <activity android:name=".MainBorrarLibro"/>
 
 
     </application>

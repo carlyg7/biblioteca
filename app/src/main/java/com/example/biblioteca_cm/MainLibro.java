@@ -3,6 +3,7 @@ package com.example.biblioteca_cm;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -28,6 +29,8 @@ public class MainLibro extends AppCompatActivity {
     private FirebaseFirestore db;
 
     private String rolUsuario;
+    private SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +83,28 @@ public class MainLibro extends AppCompatActivity {
             modlibro.setVisibility(View.GONE);
             modlibro2.setVisibility(View.GONE);
         }
+
+        modlibro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Redirigir a MainLibro
+                Intent intent = new Intent(MainLibro.this, MainEditarLibro.class);
+                intent.putExtra("isbnLibro", isbnLibro);
+                intent.putExtra("rolUsuario", rolUsuario);
+                startActivity(intent);
+            }
+        });
+
+        borrarlibro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Redirigir a MainLibro
+                Intent intent = new Intent(MainLibro.this, MainBorrarLibro.class);
+                intent.putExtra("isbnLibro", isbnLibro);
+                intent.putExtra("rolUsuario", rolUsuario);
+                startActivity(intent);
+            }
+        });
     }
 
     private void obtenerDatosLibro(String isbn){

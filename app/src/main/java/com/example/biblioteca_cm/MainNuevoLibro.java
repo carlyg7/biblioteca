@@ -40,6 +40,7 @@ public class MainNuevoLibro extends AppCompatActivity {
     private FirebaseFirestore db;
     private static final String TAG = "Añadir Libro";
     private String imagenBase64;
+    private String rolUsuario;
 
     private static final int REQUEST_MEDIA_PERMISSION = 101;
 
@@ -78,6 +79,10 @@ public class MainNuevoLibro extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
+
+        rolUsuario = getIntent().getStringExtra("rolUsuario");
+        Log.d(TAG, "rolUsuario:::::::::::::::::::: " + rolUsuario); // Agregar este log
+
 
         // Botón para seleccionar imagen
         Button btnSeleccionarImagen = findViewById(R.id.btnSeleccionarImagen);
@@ -166,6 +171,8 @@ public class MainNuevoLibro extends AppCompatActivity {
                                             ((EditText) findViewById(R.id.reg_editorial)).setText("");
                                             ((EditText) findViewById(R.id.reg_sinopsis)).setText("");
                                             Intent intent = new Intent(MainNuevoLibro.this, MainMenu.class);
+                                            Log.d(TAG, "rolUsuario: " + rolUsuario); // Agregar este log
+                                            intent.putExtra("rolUsuario", rolUsuario);
                                             startActivity(intent);
                                             finish(); // Cierra la actividad actual para que el usuario no pueda regresar con el botón de retroceso
 
