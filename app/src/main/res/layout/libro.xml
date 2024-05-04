@@ -164,11 +164,21 @@
                 android:id="@+id/sinopsisLibro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textColor="@color/black"
                 android:text="Sinopsis"
                 android:drawablePadding="8dp"
                 android:layout_marginTop="16dp"/>
+
+            <Button
+                android:id="@+id/btnReservarLibro"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:background="@color/color_principal"
+                android:text="Reservar"
+                android:textColor="@android:color/white" />
 
             <View
                 android:layout_width="match_parent"
