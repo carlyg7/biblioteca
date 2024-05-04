@@ -198,7 +198,7 @@ public class MainLibro extends AppCompatActivity {
     private void guardarReserva() {
         Reserva nuevaReserva = new Reserva(dniReserva, isbnReserva, tituloReserva, nombreReserva);
         db.collection("reserva")
-                .document(dniReserva + isbnReserva) // Utilizar el DNI y el ISBN como clave única
+                .document(dniReserva +"::"+ isbnReserva) // Utilizar el DNI y el ISBN como clave única
                 .set(nuevaReserva)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -208,7 +208,7 @@ public class MainLibro extends AppCompatActivity {
 
                         Toast.makeText(MainLibro.this, "Libro reservado correctamente", Toast.LENGTH_SHORT).show();
                         // Redirigir a MainLibro
-                        Intent intent = new Intent(MainLibro.this, MainLibro.class);
+                        Intent intent = new Intent(MainLibro.this, MainMenu.class);
                         intent.putExtra("rolUsuario", rolUsuario);
                         intent.putExtra("dniUsuario", dniUsuario);
                         startActivity(intent);
