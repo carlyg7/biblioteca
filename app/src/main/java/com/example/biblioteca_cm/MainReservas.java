@@ -67,24 +67,48 @@ public class MainReservas extends Fragment {
     }
 
     private void cargarReservas() {
-        db.collection("reserva")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                // Convertir el documento en un objeto Reserva
-                                Reserva reserva = document.toObject(Reserva.class);
-                                // Crear una vista para mostrar la reserva
-                                crearVistaReserva(reserva);
+        if ("admin".equals(rolUsuario)) {
+            // Si el usuario es un administrador, obtener todas las reservas
+            db.collection("reserva")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    // Convertir el documento en un objeto Reserva
+                                    Reserva reserva = document.toObject(Reserva.class);
+                                    // Crear una vista para mostrar la reserva
+                                    crearVistaReserva(reserva);
+                                }
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
                             }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
                         }
-                    }
-                });
+                    });
+        } else {
+            // Si el usuario no es un administrador, obtener solo las reservas que coincidan con su DNI
+            db.collection("reserva")
+                    .whereEqualTo("dni", dniUsuario)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    // Convertir el documento en un objeto Reserva
+                                    Reserva reserva = document.toObject(Reserva.class);
+                                    // Crear una vista para mostrar la reserva
+                                    crearVistaReserva(reserva);
+                                }
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+        }
     }
+
 
     private void crearVistaReserva(Reserva reserva) {
         // Crear un nuevo CardView para mostrar la reserva
