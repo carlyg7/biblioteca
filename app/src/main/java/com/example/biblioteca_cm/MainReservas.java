@@ -13,6 +13,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -159,6 +160,24 @@ public class MainReservas extends Fragment {
         linearLayoutReserva.addView(textViewLibro);
         linearLayoutReserva.addView(textViewUsuario);
 
+        // Si el usuario es administrador, agregar el botón "Cancelar reserva"
+        if ("admin".equals(rolUsuario)) {
+            Button btnCancelarReserva = new Button(requireContext());
+            btnCancelarReserva.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            ));
+            btnCancelarReserva.setText("Cancelar reserva");
+            btnCancelarReserva.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Aquí ejecuta la lógica para cancelar la reserva
+                    cancelarReserva(reserva);
+                }
+            });
+            linearLayoutReserva.addView(btnCancelarReserva);
+        }
+
         // Agregar el LinearLayout de la reserva al CardView
         cardView.addView(linearLayoutReserva);
 
@@ -166,8 +185,65 @@ public class MainReservas extends Fragment {
         linearLayoutReservas.addView(cardView);
     }
 
+
     private int convertirDpToPx(int dp) {
         float density = getResources().getDisplayMetrics().density;
         return Math.round((float) dp * density);
     }
+
+    private void cancelarReserva(Reserva reserva) {
+        // Eliminar la reserva de la base de datos
+        db.collection("reserva")
+                .document(reserva.getDni()+"::"+reserva.getIsbn()) // Aquí asumo que hay un método getId() en la clase Reserva para obtener el ID del documento en Firestore
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Cancelación exitosa, actualiza la UI o muestra un mensaje
+                        Toast.makeText(requireContext(), "Reserva cancelada", Toast.LENGTH_SHORT).show();
+
+                        // Poner libro como disponible
+                        String idLibro = reserva.getIsbn();
+                        actualizarDisponibilidadLibro(idLibro);
+                        // Actualizar la interfaz de usuario para reflejar los cambios
+                        actualizarVistaDespuesCancelarReserva(reserva);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Error al cancelar la reserva, muestra un mensaje de error
+                        Log.e(TAG, "Error al cancelar reserva", e);
+                        Toast.makeText(requireContext(), "Error al cancelar reserva", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void actualizarVistaDespuesCancelarReserva(Reserva reserva) {
+        // Eliminar todas las vistas de reservas del layout
+        linearLayoutReservas.removeAllViews();
+
+        // Volver a cargar las reservas desde Firestore
+        cargarReservas();
+    }
+
+    private void actualizarDisponibilidadLibro(String idLibro) {
+        // Actualizar el campo 'disponible' del libro a true en Firestore
+        db.collection("libro")
+                .document(idLibro)
+                .update("disponible", true)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Campo disponible del libro actualizado correctamente a true");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Error al actualizar el campo disponible del libro", e);
+                    }
+                });
+    }
+
 }
