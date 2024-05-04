@@ -12,11 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/bg"
-        android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:scaleType="centerCrop" />
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
@@ -25,28 +21,20 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/color_principal"
         app:title="BiblioGestor"
-        app:titleTextColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" >
+        app:titleTextColor="@color/white" />
 
-        <TextView
-            android:id="@+id/toolbar_title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="BiblioGestor"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            />
+    <!-- LinearLayout para mostrar las reservas -->
+    <LinearLayout
+        android:id="@+id/linearLayoutReservas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="70dp">
 
-        <!-- Posicionar la imagen a la derecha -->
-        <RelativeLayout
-            android:id="@+id/btn_perfil"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </RelativeLayout>
+        <!-- Aquí se agregarán dinámicamente las vistas de las reservas -->
 
-    </androidx.appcompat.widget.Toolbar>
-    <!-- Contenido de la vista -->
+    </LinearLayout>
 
 </FrameLayout>
