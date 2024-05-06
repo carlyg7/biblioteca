@@ -4,12 +4,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.style.StyleSpan;
 import android.util.Base64;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,6 +127,12 @@ public class MainReservas extends Fragment {
         cardView.setRadius(convertirDpToPx(4)); // Radio de borde del CardView
         cardView.setCardElevation(convertirDpToPx(2)); // Elevación del CardView
         cardView.setUseCompatPadding(true); // Alinear el contenido al borde del CardView
+        cardView.setPadding(
+                convertirDpToPx(16), // Padding izquierdo
+                convertirDpToPx(16), // Padding superior
+                convertirDpToPx(16), // Padding derecho
+                convertirDpToPx(16)  // Padding inferior
+        );
 
         // Crear un LinearLayout vertical para el contenido de la reserva
         LinearLayout linearLayoutReserva = new LinearLayout(requireContext());
@@ -131,12 +141,7 @@ public class MainReservas extends Fragment {
                 LinearLayout.LayoutParams.WRAP_CONTENT
         ));
         linearLayoutReserva.setOrientation(LinearLayout.VERTICAL);
-        linearLayoutReserva.setPadding(
-                convertirDpToPx(16), // Padding izquierdo
-                convertirDpToPx(16), // Padding superior
-                convertirDpToPx(16), // Padding derecho
-                convertirDpToPx(16)  // Padding inferior
-        );
+        linearLayoutReserva.setGravity(Gravity.CENTER); // Centrar el contenido verticalmente
 
         // Crear un TextView para mostrar el nombre del libro
         TextView textViewLibro = new TextView(requireContext());
@@ -145,20 +150,27 @@ public class MainReservas extends Fragment {
                 LinearLayout.LayoutParams.WRAP_CONTENT
         ));
         textViewLibro.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16); // Tamaño del texto en sp
-        textViewLibro.setText(reserva.getTitulo_libro());
+        textViewLibro.setTextColor(Color.BLACK); // Color del texto
+        textViewLibro.setGravity(Gravity.CENTER);
+        SpannableString libroText = new SpannableString(reserva.getTitulo_libro());
+        libroText.setSpan(new StyleSpan(Typeface.BOLD), 0, libroText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); // Negrita
+        textViewLibro.setText(libroText);
 
-        // Crear un TextView para mostrar el nombre del usuario
-        TextView textViewUsuario = new TextView(requireContext());
-        textViewUsuario.setLayoutParams(new LinearLayout.LayoutParams(
+        // Crear un TextView para mostrar la información de reserva (en cursiva)
+        TextView textViewReservaInfo = new TextView(requireContext());
+        textViewReservaInfo.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         ));
-        textViewUsuario.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14); // Tamaño del texto en sp
-        textViewUsuario.setText(reserva.getNombre_usuario());
+        textViewReservaInfo.setGravity(Gravity.CENTER);
+        textViewReservaInfo.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14); // Tamaño del texto en sp
+        SpannableString reservaInfoText = new SpannableString("Reservado por: " + reserva.getNombre_usuario());
+        reservaInfoText.setSpan(new StyleSpan(Typeface.ITALIC), 0, reservaInfoText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); // Cursiva
+        textViewReservaInfo.setText(reservaInfoText);
 
         // Agregar los TextView al LinearLayout de la reserva
         linearLayoutReserva.addView(textViewLibro);
-        linearLayoutReserva.addView(textViewUsuario);
+        linearLayoutReserva.addView(textViewReservaInfo);
 
         // Si el usuario es administrador, agregar el botón "Cancelar reserva"
         if ("admin".equals(rolUsuario)) {
@@ -168,6 +180,8 @@ public class MainReservas extends Fragment {
                     LinearLayout.LayoutParams.WRAP_CONTENT
             ));
             btnCancelarReserva.setText("Cancelar reserva");
+            btnCancelarReserva.setBackgroundColor(Color.TRANSPARENT); // Color del texto
+            btnCancelarReserva.setTextColor(Color.RED);
             btnCancelarReserva.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -184,6 +198,8 @@ public class MainReservas extends Fragment {
         // Agregar el CardView al LinearLayout principal
         linearLayoutReservas.addView(cardView);
     }
+
+
 
 
     private int convertirDpToPx(int dp) {
