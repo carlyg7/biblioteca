@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/crema"
     tools:context=".Controlador.Catalogo">
 
     <!-- Fondo -->
     <ImageView
         android:id="@+id/background_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:src="@drawable/bg"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop" />
 
     <!-- Toolbar -->

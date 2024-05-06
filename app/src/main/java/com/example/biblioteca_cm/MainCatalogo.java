@@ -10,9 +10,11 @@ import android.text.style.StyleSpan;
 import android.util.Base64;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -22,28 +24,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-
-import com.example.biblioteca_cm.Libro;
-import com.example.biblioteca_cm.MainDatosUsuarios;
-import com.example.biblioteca_cm.MainLibro;
-import com.example.biblioteca_cm.R;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import java.util.Objects;
 
 public class MainCatalogo extends Fragment {
 
-    private LinearLayout linearLayoutBooks;
+    private GridLayout gridLayoutBooks;
     private FirebaseFirestore db;
     private static final String TAG = "MainCatalogo";
     private SharedPreferences sharedPreferences;
-
     private String dniUsuario;
     private String rolUsuario;
 
@@ -59,13 +52,12 @@ public class MainCatalogo extends Fragment {
         dniUsuario = requireActivity().getIntent().getStringExtra("dniUsuario");
         rolUsuario = requireActivity().getIntent().getStringExtra("rolUsuario");
 
-
-        // Obtener una referencia al LinearLayout donde se agregarán las CardViews
-        linearLayoutBooks = view.findViewById(R.id.linearLayoutBooks);
+        // Obtener una referencia al GridLayout donde se agregarán las CardViews
+        gridLayoutBooks = view.findViewById(R.id.gridLayoutBooks);
         // Mostrar los libros
         mostrarLibros();
 
-        //Boton de agregar libros solo para administrador
+        // Botón de agregar libros solo para administrador
         TextView anadirlibro = view.findViewById(R.id.anadirlibro);
         ImageView anadirlibro2 = view.findViewById(R.id.anadirlibro2);
         if("admin".equals(rolUsuario)){
@@ -89,9 +81,7 @@ public class MainCatalogo extends Fragment {
             }
         });
 
-
         return view;
-
     }
 
     private void agregarCardViewLibro(Libro libro, String libroId) {
@@ -101,68 +91,30 @@ public class MainCatalogo extends Fragment {
 
         // Crear una nueva CardView
         CardView cardView = new CardView(requireContext());
-        LinearLayout.LayoutParams cardLayoutParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
 
-        // Configurar márgenes y padding
-        int margin = 16; // Valor en dp
-        int marginPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, margin, getResources().getDisplayMetrics());
-        cardLayoutParams.setMargins(marginPx, marginPx, marginPx, marginPx);
-        cardView.setLayoutParams(cardLayoutParams);
-        cardView.setContentPadding(marginPx, marginPx, marginPx, marginPx);
-        cardView.setCardBackgroundColor(requireContext().getColor(android.R.color.white));
-        cardView.setCardElevation(10);
-        cardView.setRadius(25);
+        // Configurar la vista de la tarjeta
+        GridLayout.LayoutParams cardLayoutParams = new GridLayout.LayoutParams();
+        cardLayoutParams.width = getResources().getDimensionPixelSize(R.dimen.card_width); // Establecer un tamaño fijo para la tarjeta
+        cardLayoutParams.height = GridLayout.LayoutParams.WRAP_CONTENT;
+        cardLayoutParams.setMargins(8, 16, 8, 16); // Ajustar los márgenes izquierdo y derecho para centrar la tarjeta
+        cardLayoutParams.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f); // Alinear la tarjeta en el centro de la columna
 
-        // Configurar las vistas dentro de la CardView
-        LinearLayout layout = new LinearLayout(requireContext());
-        layout.setOrientation(LinearLayout.HORIZONTAL);
-        cardView.addView(layout);
+        // Crear un LinearLayout vertical para el contenido de la tarjeta
+        LinearLayout cardContentLayout = new LinearLayout(requireContext());
+        cardContentLayout.setOrientation(LinearLayout.VERTICAL);
 
-        // Agregar la imagen a la izquierda
+        // Agregar la imagen del libro a la tarjeta
         ImageView bookCover = new ImageView(requireContext());
         bookCover.setImageBitmap(decodedByte);
         LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(
-                0,
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                3
+                getResources().getDimensionPixelSize(R.dimen.image_width), // Establecer un tamaño fijo para la imagen
+                getResources().getDimensionPixelSize(R.dimen.image_height) // Establecer un tamaño fijo para la imagen
         );
-        layout.addView(bookCover, imageParams);
+        imageParams.gravity = Gravity.CENTER;
+        imageParams.setMargins(0, getResources().getDimensionPixelSize(R.dimen.image_margin), 0, getResources().getDimensionPixelSize(R.dimen.image_margin)); // Establecer el margen superior
+        cardContentLayout.addView(bookCover, imageParams);
 
-        // Crear un LinearLayout vertical para el título y el autor a la derecha
-        LinearLayout textLayout = new LinearLayout(requireContext());
-        textLayout.setOrientation(LinearLayout.VERTICAL);
-        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(
-                0,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                7
-        );
-        layout.addView(textLayout, textParams);
-
-        // Obtener referencias a las vistas dentro del textLayout
-        TextView bookTitle = new TextView(requireContext());
-        bookTitle.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        ));
-        // Establecer el título en negrita y aumentar el tamaño de la letra
-        SpannableString titleSpan = new SpannableString(libro.getTitulo());
-        titleSpan.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, titleSpan.length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-        bookTitle.setText(titleSpan);
-        bookTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18); // Tamaño de letra de 18sp
-        textLayout.addView(bookTitle);
-
-        TextView bookAuthor = new TextView(requireContext());
-        bookAuthor.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        ));
-        bookAuthor.setText(libro.getAutor());
-        textLayout.addView(bookAuthor);
-
-        // Agregar un OnClickListener para guardar la clave única del libro al hacer clic en la CardView
+        // Agregar un OnClickListener para abrir los detalles del libro
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,7 +123,7 @@ public class MainCatalogo extends Fragment {
                 editor.putString("libroId", libroId);
                 editor.apply();
 
-                // Redirigir a MainLibro
+                // Abrir los detalles del libro
                 Intent intent = new Intent(requireActivity(), MainLibro.class);
                 intent.putExtra("libroId", libroId);
                 intent.putExtra("rolUsuario", rolUsuario);
@@ -180,10 +132,15 @@ public class MainCatalogo extends Fragment {
             }
         });
 
-        // Agregar la CardView al LinearLayout
-        linearLayoutBooks.addView(cardView);
+        // Agregar la vista de contenido a la tarjeta
+        cardView.addView(cardContentLayout);
+
+        // Agregar la CardView al GridLayout
+        GridLayout gridLayout = requireView().findViewById(R.id.gridLayoutBooks);
+        gridLayout.addView(cardView, cardLayoutParams);
         Log.d(TAG, "CardView agregada para el libro: " + libro.getTitulo());
     }
+
     private void mostrarLibros() {
         // Consulta a Firestore para obtener los datos de libros
         db.collection("libro")
@@ -192,7 +149,7 @@ public class MainCatalogo extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                                 Libro libro = document.toObject(Libro.class);
                                 String libroId = document.getId(); // Obtener la clave única del libro
                                 agregarCardViewLibro(libro, libroId);

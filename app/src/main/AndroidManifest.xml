@@ -10,14 +10,15 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_logo"
         android:label="BiblioGestor"
+        android:icon="@mipmap/ic_logo"
         android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".MainLogo"
+            android:theme="@style/TransparentTheme"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,15 +26,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity"/>
         <activity android:name=".Registro"/>
         <activity android:name=".MainLibro"/>
-        <activity android:name=".MainDatosUsuarios"/>
-        <activity android:name=".MainCatalogo"/>
         <activity android:name=".MainMenu"/>
         <activity android:name=".MainNuevoLibro" />
         <activity android:name=".MainEditarLibro" />
         <activity android:name=".MainBorrarLibro"/>
         <activity android:name=".ModifyUser"/>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
 
     </application>

@@ -9,8 +9,8 @@
     <ImageView
         android:id="@+id/background_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:src="@drawable/bg"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop" />
 
     <!-- Toolbar -->
@@ -59,13 +59,16 @@
         android:layout_marginTop="?attr/actionBarSize"
         android:clipToPadding="false">
 
-        <LinearLayout
-            android:id="@+id/linearLayoutBooks"
+        <GridLayout
+            android:id="@+id/gridLayoutBooks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp" />
+            android:columnCount="2"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            tools:ignore="GridLayout">
+
+        </GridLayout>
 
     </ScrollView>
 
